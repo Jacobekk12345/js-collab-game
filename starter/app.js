@@ -149,7 +149,7 @@ function akcja(co) {
     case "karta":
       {
         if (pokoj == 1 && karta == false) {
-          karta = true;.
+          karta = true;
           console.log("Zabierasz karte.");
         }
         else {
