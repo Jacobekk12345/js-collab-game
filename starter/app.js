@@ -48,7 +48,6 @@ function pomoc() {
   // TODO A5: dopisz pozostale kierunki i akcje oraz zasade kosztu.
 }
 function status() {
-  // TODO A3: wypisz pokoj, energie, przedmioty, zasilanie i stan gry.
   console.log(`Pokój: ${pokoj}(${nazwaPokoju(pokoj)})`);
   console.log(`Energia: ${energia}`);
   console.log(`Karta: ${karta ? "tak" : "nie"}`);
