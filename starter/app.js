@@ -196,13 +196,9 @@ function akcja(co) {
         }
         break;
       }
-      zakonczTure();
   }
-  // TODO C3: przy odrzuceniu return; przy sukcesie break.
-  // TODO C3: po switch jedno zakonczTure().
+  zakonczTure();
 
-  // TODO C4: wygrana i koniec ustawione przed rozliczeniem tury!
-  console.log("Akcje do uzupelnienia");
 }
 
 start();
