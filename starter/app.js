@@ -49,10 +49,23 @@ function pomoc() {
 }
 function status() {
   // TODO A3: wypisz pokoj, energie, przedmioty, zasilanie i stan gry.
-  console.log("Status do uzupelnienia");
+  console.log(`Pokój: ${pokoj}(${nazwaPokoju(pokoj)})`);
+  console.log(`Energia: ${energia}`);
+  console.log(`Karta: ${karta ? "tak" : "nie"}`);
+  console.log(`Bezpiecznik: ${bezpiecznik ? "tak" : "nie"}`);
+  console.log(`Zasilanie: ${zasilanie ? "tak" : "nie"}`);
+  
+  let statusGry = "";
+  if (wygrana)
+    statusGry = "wygrana";
+  else if (koniec)
+    statusGry = "przegrana";
+  else
+    statusGry = "w trakcie";
+
+  console.log(`Status gry: ${statusGry}`);
 }
 function mapa() {
-  // TODO A2: petla for od 1 do 4; nazwa i znacznik aktualnego pokoju.
   for (let i = 1; i <= 4; i++) {
     console.log(`${i} ${nazwaPokoju(i)}${i === pokoj ? " <-- jestes tutaj" : ""}`);
   }
