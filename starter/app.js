@@ -69,6 +69,7 @@ function akcja(co) {
   // TODO C1: zablokuj akcje po koncu gry.
   if(koniec === true)
   {
+    console.log("Nie mozesz wykonac akcji nie ma aktywnej gry.");
     return;
   }
   // TODO C2: switch: karta / bezpiecznik / napraw / wyjdz.
