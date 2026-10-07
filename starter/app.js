@@ -35,7 +35,6 @@ function zakonczTure() {
 
 // SEKCJA A — INFORMACJE I MAPA
 function nazwaPokoju(numer) {
-  // TODO A1: switch; zwroc nazwe pokoju jako tekst.
   switch(numer) {
     case 1: return "Recepcja";
     case 2: return "Magazyn";
@@ -54,7 +53,9 @@ function status() {
 }
 function mapa() {
   // TODO A2: petla for od 1 do 4; nazwa i znacznik aktualnego pokoju.
-  console.log("Mapa do uzupelnienia");
+  for (let i = 1; i <= 4; i++) {
+    console.log(`${i} ${nazwaPokoju(i)}${i === pokoj ? " <-- jestes tutaj" : ""}`);
+  }
 }
 function rozejrzyj() {
   // TODO A4: switch(pokoj); opis zgodny ze stanem przedmiotow.
