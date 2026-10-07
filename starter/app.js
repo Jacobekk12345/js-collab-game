@@ -45,7 +45,13 @@ function nazwaPokoju(numer) {
 }
 function pomoc() {
   console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), akcja("karta")');
-  // TODO A5: dopisz pozostale kierunki i akcje oraz zasade kosztu.
+  console.log("start(): Resetuje wszystkie zmienne, wypisuje pomoc i opis");
+  console.log("pomoc(): Wypisuje komendy i zasady");
+  console.log("status(): Pokazuje aktualne dane");
+  console.log("mapa(): Pętlą wypisuje cztery pokoje i zaznacza aktualny");
+  console.log("rozejrzyj(): Opisuje aktualny pokój i przedmioty");
+  console.log("idz(\"prawo\"): ruch w kierunku podanych w nawiasie w tym przypadku w prawo");
+  console.log("akcja(\"karta\"): wykonuje akcje, dostepne wartosci: \"karta\", \"bezpiecznik\", \"napraw\", \"wyjdz\"");
 }
 function status() {
   console.log(`Pokój: ${pokoj}(${nazwaPokoju(pokoj)})`);
@@ -70,8 +76,29 @@ function mapa() {
   }
 }
 function rozejrzyj() {
-  // TODO A4: switch(pokoj); opis zgodny ze stanem przedmiotow.
-  console.log("Opis pokoju do uzupelnienia");
+  switch(pokoj) {
+    case 1: {
+      if (!karta)
+        console.log("Karta leży na biurku");
+      break;
+    }
+    case 2: {
+      if (!bezpiecznik && !zasilanie)
+        console.log("Bezpiecznik leży na półce");
+      break;
+    }
+    case 3: {
+      if (zasilanie)
+        console.log("Zasilanie działa");
+      else
+        console.log("Zasilanie nie działa");
+      break;
+    }
+    case 4: {
+      console.log("Wymagania: musisz znaleźć kartę i bezpiecznik, przywrócić zasilanie i wyjść");
+      break;
+    }
+  }
 }
 
 // SEKCJA B — RUCH
