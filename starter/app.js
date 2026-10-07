@@ -103,11 +103,36 @@ function rozejrzyj() {
 
 // SEKCJA B — RUCH
 function idz(kierunek) {
-  // TODO B1: zablokuj ruch po koncu gry.
+  if (koniec) {
+    console.log("Koniec gry, nie mozesz sie ruszyc");
+    return;
+  }
   // TODO B2: switch kierunku; oblicz kandydat na nowy pokoj.
+  let nastepnyPokoj = pokoj;
+  switch(kierunek) {
+    case "prawo": {
+      nastepnyPokoj += 1;
+      break;
+    }
+    case "lewo": {
+      nastepnyPokoj -= 1;
+      break;
+    }
+    default: {
+      console.log("nieznany kierunek, dostepne opcje: \"prawo\", \"lewo\"");
+      return;
+    }
+  }
   // TODO B3: odrzuc pokoj poza 1..4 i nieznany kierunek bez kosztu.
+  if (1 > nastepnyPokoj || nastepnyPokoj > 4) {
+    console.log("nie mozesz wejsc w sciane");
+    return;
+  }
+  
   // TODO B4: zapisz poprawny pokoj, rozejrzyj(), zakonczTure().
-  console.log("Ruch do uzupelnienia");
+  pokoj = nastepnyPokoj;
+  rozejrzyj();
+  zakonczTure();
 }
 
 // SEKCJA C — PRZEDMIOTY I WYGRANA
