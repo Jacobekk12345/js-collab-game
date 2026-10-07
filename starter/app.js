@@ -36,7 +36,13 @@ function zakonczTure() {
 // SEKCJA A — INFORMACJE I MAPA
 function nazwaPokoju(numer) {
   // TODO A1: switch; zwroc nazwe pokoju jako tekst.
-  return "Nazwa do uzupelnienia";
+  switch(numer) {
+    case 1: return "Recepcja";
+    case 2: return "Magazyn";
+    case 3: return "Serwerownia";
+    case 4: return "Wyjście";
+    default: return "Nieznane pomieszczenie";
+  }
 }
 function pomoc() {
   console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), akcja("karta")');
