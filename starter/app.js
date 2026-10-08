@@ -101,7 +101,7 @@ function akcja(co) {
       }
     case "napraw":
       {
-        if(pokoj == 3 && bezpiecznik == true && zasilanie == false) {
+        if(pokoj == 3 && bezpiecznik == true && zasilanie == false && karta == true) {
           bezpiecznik = false;
           zasilanie = true;
           console.log("Naprawiles zasilanie!");
