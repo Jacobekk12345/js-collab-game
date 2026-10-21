@@ -1,6 +1,3 @@
-
-
-// SEKCJA 0 — GOTOWY SILNIK NAUCZYCIELA
 function start() {
   pokoj = 1;
   energia = MAKS_ENERGIA;
@@ -25,7 +22,6 @@ function zakonczTure() {
   }
 }
 
-// SEKCJA A — INFORMACJE I MAPA
 function nazwaPokoju(numer) {
   switch(numer) {
     case 1: return "Recepcja";
@@ -93,13 +89,11 @@ function rozejrzyj() {
   }
 }
 
-// SEKCJA B — RUCH
 function idz(kierunek) {
   if (koniec) {
     console.log("Koniec gry, nie mozesz sie ruszyc");
     return;
   }
-  // TODO B2: switch kierunku; oblicz kandydat na nowy pokoj.
   let nastepnyPokoj = pokoj;
   switch(kierunek) {
     case "prawo": {
@@ -115,28 +109,22 @@ function idz(kierunek) {
       return;
     }
   }
-  // TODO B3: odrzuc pokoj poza 1..4 i nieznany kierunek bez kosztu.
   if (1 > nastepnyPokoj || nastepnyPokoj > 4) {
     console.log("nie mozesz wejsc w sciane");
     return;
   }
   
-  // TODO B4: zapisz poprawny pokoj, rozejrzyj(), zakonczTure().
   pokoj = nastepnyPokoj;
   rozejrzyj();
   zakonczTure();
 }
 
-// SEKCJA C — PRZEDMIOTY I WYGRANA
 function akcja(co) {
-  // TODO C1: zablokuj akcje po koncu gry.
   if(koniec === true)
   {
     console.log("Nie mozesz wykonac akcji nie ma aktywnej gry.");
     return;
   }
-  // TODO C2: switch: karta / bezpiecznik / napraw / wyjdz.
-  // TODO C2: przed zmiana sprawdz pokoj i wymagany stan.
   switch (co) {
     case "karta":
       {
