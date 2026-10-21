@@ -203,5 +203,23 @@ class Gra {
 
     stan = data;
   }
+
+
+  exportJSON() {
+    const pakiet = {
+      wersja: 1,
+      stan: {
+        pokoj: this.pokoj,
+        energia: this.energia,
+        karta: this.karta,
+        bezpiecznik: this.bezpiecznik,
+        zasilanie: this.zasilanie,
+        koniec: this.koniec,
+        wygrana: this.wygrana
+      }
+    };
+
+    return JSON.stringify(pakiet, null, 2);
+  }
 }
 start();
