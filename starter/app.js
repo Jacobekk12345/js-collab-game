@@ -128,7 +128,7 @@ class Gra {
     switch (co) {
       case "karta":
         {
-          if (pokoj == 1 && stan.karta == false) {
+          if (stan.pokoj == 1 && stan.karta == false) {
             stan.karta = true;
             console.log("Zabierasz karte.");
           } else {
