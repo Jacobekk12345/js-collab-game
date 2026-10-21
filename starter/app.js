@@ -5,19 +5,19 @@ class Gra {
   }
 
   start() {
-    stan = stanPoczatkowy();
+    this.stan = stanPoczatkowy();
     console.log("UCIECZKA Z SERWEROWNI. Zasilanie awaryjne wystarczy na 10 tur.");
     this.pomoc();
     this.rozejrzyj();
   }
 
   zakonczTure() {
-    stan.energia = stan.energia - 1;
-    console.log("Pozostala energia: " + stan.energia);
-    if (stan.wygrana) {
+    this.stan.energia = this.stan.energia - 1;
+    console.log("Pozostala energia: " + this.stan.energia);
+    if (this.stan.wygrana) {
       console.log("WYGRANA! Drzwi otwarte. Mozesz wrocic do domu.");
-    } else if (stan.energia === 0) {
-      stan.koniec = true;
+    } else if (this.stan.energia === 0) {
+      this.stan.koniec = true;
       console.log("PRZEGRANA. Zasilanie awaryjne padlo. Wpisz start().");
     }
   }
@@ -42,16 +42,16 @@ class Gra {
     console.log("akcja(\"karta\"): wykonuje akcje, dostepne wartosci: \"karta\", \"bezpiecznik\", \"napraw\", \"wyjdz\"");
   }
   status() {
-    console.log(`Pokój: ${stan.pokoj}(${nazwaPokoju(stan.pokoj)})`);
-    console.log(`Energia: ${stan.energia}`);
-    console.log(`Karta: ${stan.karta ? "tak" : "nie"}`);
-    console.log(`Bezpiecznik: ${stan.bezpiecznik ? "tak" : "nie"}`);
-    console.log(`Zasilanie: ${stan.zasilanie ? "tak" : "nie"}`);
+    console.log(`Pokój: ${this.stan.pokoj}(${nazwaPokoju(this.stan.pokoj)})`);
+    console.log(`Energia: ${this.stan.energia}`);
+    console.log(`Karta: ${this.stan.karta ? "tak" : "nie"}`);
+    console.log(`Bezpiecznik: ${this.stan.bezpiecznik ? "tak" : "nie"}`);
+    console.log(`Zasilanie: ${this.stan.zasilanie ? "tak" : "nie"}`);
     
     let statusGry = "";
-    if (stan.wygrana)
+    if (this.stan.wygrana)
       statusGry = "wygrana";
-    else if (stan.koniec)
+    else if (this.stan.koniec)
       statusGry = "przegrana";
     else
       statusGry = "w trakcie";
@@ -60,23 +60,23 @@ class Gra {
   }
   mapa() {
     for (let i = 1; i <= 4; i++) {
-      console.log(`${i} ${nazwaPokoju(i)}${i === stan.pokoj ? " <-- jestes tutaj" : ""}`);
+      console.log(`${i} ${this.nazwaPokoju(i)}${i === this.stan.pokoj ? " <-- jestes tutaj" : ""}`);
     }
   }
   rozejrzyj() {
-    switch(stan.pokoj) {
+    switch(this.stan.pokoj) {
       case 1: {
-        if (!stan.karta)
+        if (!this.stan.karta)
           console.log("Karta leży na biurku");
         break;
       }
       case 2: {
-        if (!stan.bezpiecznik && !stan.zasilanie)
+        if (!this.stan.bezpiecznik && !this.stan.zasilanie)
           console.log("Bezpiecznik leży na półce");
         break;
       }
       case 3: {
-        if (stan.zasilanie)
+        if (this.stan.zasilanie)
           console.log("Zasilanie działa");
         else
           console.log("Zasilanie nie działa");
@@ -90,11 +90,11 @@ class Gra {
   }
 
   idz(kierunek) {
-    if (stan.koniec) {
+    if (this.stan.koniec) {
       console.log("Koniec gry, nie mozesz sie ruszyc");
       return;
     }
-    let nastepnyPokoj = stan.pokoj;
+    let nastepnyPokoj = this.stan.pokoj;
     switch(kierunek) {
       case "prawo": {
         nastepnyPokoj += 1;
@@ -114,13 +114,13 @@ class Gra {
       return;
     }
     
-    stan.pokoj = nastepnyPokoj;
-    rozejrzyj();
-    zakonczTure();
+    this.stan.pokoj = nastepnyPokoj;
+    this.rozejrzyj();
+    this.zakonczTure();
   }
 
   akcja(co) {
-    if(stan.koniec === true)
+    if(this.stan.koniec === true)
     {
       console.log("Nie mozesz wykonac akcji nie ma aktywnej gry.");
       return;
@@ -128,8 +128,8 @@ class Gra {
     switch (co) {
       case "karta":
         {
-          if (stan.pokoj == 1 && stan.karta == false) {
-            stan.karta = true;
+          if (this.stan.pokoj == 1 && this.stan.karta == false) {
+            this.stan.karta = true;
             console.log("Zabierasz karte.");
           } else {
             console.log("Tutaj nie ma karty do zabrania");
@@ -139,8 +139,8 @@ class Gra {
         }
       case "bezpiecznik":
         {
-          if(stan.pokoj == 2 && stan.bezpiecznik == false && stan.zasilanie == false) {
-            stan.bezpiecznik = true;
+          if(this.stan.pokoj == 2 && this.stan.bezpiecznik == false && this.stan.zasilanie == false) {
+            this.stan.bezpiecznik = true;
             console.log("Zabierasz bezpiecznik.");
           } else {
             console.log("Tutaj nie ma bezpiecznika do zabrania");
@@ -150,9 +150,9 @@ class Gra {
         }
       case "napraw":
         {
-          if(stan.pokoj == 3 && stan.bezpiecznik == true && stan.zasilanie == false) {
-            stan.bezpiecznik = false;
-            stan.zasilanie = true;
+          if(this.stan.pokoj == 3 && this.stan.bezpiecznik == true && this.stan.zasilanie == false) {
+            this.stan.bezpiecznik = false;
+            this.stan.zasilanie = true;
             console.log("Naprawiles zasilanie!");
           } else {
             console.log("Nie możesz teraz naprawić zasilania.");
@@ -162,9 +162,9 @@ class Gra {
         }
       case "wyjdz":
         {
-          if (stan.pokoj == 4 && stan.karta == true && stan.zasilanie == true) {
-            stan.wygrana = true;
-            stan.koniec = true;
+          if (this.stan.pokoj == 4 && this.stan.karta == true && this.stan.zasilanie == true) {
+            this.stan.wygrana = true;
+            this.stan.koniec = true;
             console.log("Wychodzisz z gry udalo ci sie przywrocic zasilanie!");
           }
           else {
@@ -174,52 +174,42 @@ class Gra {
           break;
         }
     }
-    zakonczTure();
+    this.zakonczTure();
 
   }
 
-  importJSON(json) {
+  importJSON(input) {
     let data;
     try {
       data = JSON.parse(input);
     }
     catch(e) {
-      return "niepoprawny JSON"
+      return "niepoprawny JSON 187"
     }
 
-    if (data == null || typeof data != "object") return "niepoprawny JSON"
+    if (data == null || typeof data != "object") return "niepoprawny JSON 190"
 
-    if (typeof data.pokoj != "number") return "pokoj musi byc liczba";
-    if (data.pokoj > 4 || data.pokoj < 1) return "niepoprawny pokoj";
+    if (typeof data.pokoj != "number") return "pokoj musi byc liczba 192";
+    if (data.pokoj > 4 || data.pokoj < 1) return "niepoprawny pokoj 193";
 
-    if (typeof data.energia != "number") return "energia musi byc liczba";
-    if (data.energia > MAKS_ENERGIA || data.energia < 0) return "niepoprawna ilosc energii";
+    if (typeof data.energia != "number") return "energia musi byc liczba 195";
+    if (data.energia > MAKS_ENERGIA || data.energia < 0) return "niepoprawna ilosc energii 196";
 
-    if (typeof data.karta != "boolean") return "karta musi byc typem logicznym";
-    if (typeof data.bezpiecznik != "boolean") return "bezpiecznik musi byc typem logicznym";
-    if (typeof data.zasilanie != "boolean") return "zasilanie musi byc typem logicznym";
-    if (typeof data.koniec != "boolean") return "koniec musi byc typem logicznym";
-    if (typeof data.wygrana != "boolean") return "wygrana musi byc typem logicznym";
+    if (typeof data.karta != "boolean") return "karta musi byc typem logicznym 198";
+    if (typeof data.bezpiecznik != "boolean") return "bezpiecznik musi byc typem logicznym 199";
+    if (typeof data.zasilanie != "boolean") return "zasilanie musi byc typem logicznym 200";
+    if (typeof data.koniec != "boolean") return "koniec musi byc typem logicznym 201";
+    if (typeof data.wygrana != "boolean") return "wygrana musi byc typem logicznym 202";
 
-    stan = data;
+    this.stan = data;
   }
 
 
   exportJSON() {
-    const pakiet = {
-      wersja: 1,
-      stan: {
-        pokoj: this.pokoj,
-        energia: this.energia,
-        karta: this.karta,
-        bezpiecznik: this.bezpiecznik,
-        zasilanie: this.zasilanie,
-        koniec: this.koniec,
-        wygrana: this.wygrana
-      }
-    };
-
-    return JSON.stringify(pakiet, null, 2);
+    return JSON.stringify(this.stan);
   }
 }
-start();
+
+let gra = new Gra();
+
+gra.start();
