@@ -177,5 +177,31 @@ class Gra {
     zakonczTure();
 
   }
+
+  importJSON(json) {
+    let data;
+    try {
+      data = JSON.parse(input);
+    }
+    catch(e) {
+      return "niepoprawny JSON"
+    }
+
+    if (data == null || typeof data != "object") return "niepoprawny JSON"
+
+    if (typeof data.pokoj != "number") return "pokoj musi byc liczba";
+    if (data.pokoj > 4 || data.pokoj < 1) return "niepoprawny pokoj";
+
+    if (typeof data.energia != "number") return "energia musi byc liczba";
+    if (data.energia > MAKS_ENERGIA || data.energia < 0) return "niepoprawna ilosc energii";
+
+    if (typeof data.karta != "boolean") return "karta musi byc typem logicznym";
+    if (typeof data.bezpiecznik != "boolean") return "bezpiecznik musi byc typem logicznym";
+    if (typeof data.zasilanie != "boolean") return "zasilanie musi byc typem logicznym";
+    if (typeof data.koniec != "boolean") return "koniec musi byc typem logicznym";
+    if (typeof data.wygrana != "boolean") return "wygrana musi byc typem logicznym";
+
+    stan = data;
+  }
 }
 start();
