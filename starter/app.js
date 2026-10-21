@@ -1,184 +1,232 @@
-function start() {
-  pokoj = 1;
-  energia = MAKS_ENERGIA;
-  karta = false;
-  bezpiecznik = false;
-  zasilanie = false;
-  koniec = false;
-  wygrana = false;
-  console.log("UCIECZKA Z SERWEROWNI. Zasilanie awaryjne wystarczy na 10 tur.");
-  pomoc();
-  rozejrzyj();
-}
 
-function zakonczTure() {
-  energia = energia - 1;
-  console.log("Pozostala energia: " + energia);
-  if (wygrana) {
-    console.log("WYGRANA! Drzwi otwarte. Mozesz wrocic do domu.");
-  } else if (energia === 0) {
-    koniec = true;
-    console.log("PRZEGRANA. Zasilanie awaryjne padlo. Wpisz start().");
+class Gra {
+  constructor() {
+    this.MAKS_ENERGIA = 10;
+    this.pokoj = 1;
+    this.energia = this.MAKS_ENERGIA;
+    this.karta = false;
+    this.bezpiecznik = false;
+    this.zasilanie = false;
+    this.koniec = false;
+    this.wygrana = false;
   }
-}
 
-function nazwaPokoju(numer) {
-  switch(numer) {
-    case 1: return "Recepcja";
-    case 2: return "Magazyn";
-    case 3: return "Serwerownia";
-    case 4: return "Wyjście";
-    default: return "Nieznane pomieszczenie";
-  }
-}
-function pomoc() {
-  console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), akcja("karta")');
-  console.log("start(): Resetuje wszystkie zmienne, wypisuje pomoc i opis");
-  console.log("pomoc(): Wypisuje komendy i zasady");
-  console.log("status(): Pokazuje aktualne dane");
-  console.log("mapa(): Pętlą wypisuje cztery pokoje i zaznacza aktualny");
-  console.log("rozejrzyj(): Opisuje aktualny pokój i przedmioty");
-  console.log("idz(\"prawo\"): ruch w kierunku podanych w nawiasie w tym przypadku w prawo");
-  console.log("akcja(\"karta\"): wykonuje akcje, dostepne wartosci: \"karta\", \"bezpiecznik\", \"napraw\", \"wyjdz\"");
-}
-function status() {
-  console.log(`Pokój: ${pokoj}(${nazwaPokoju(pokoj)})`);
-  console.log(`Energia: ${energia}`);
-  console.log(`Karta: ${karta ? "tak" : "nie"}`);
-  console.log(`Bezpiecznik: ${bezpiecznik ? "tak" : "nie"}`);
-  console.log(`Zasilanie: ${zasilanie ? "tak" : "nie"}`);
-  
-  let statusGry = "";
-  if (wygrana)
-    statusGry = "wygrana";
-  else if (koniec)
-    statusGry = "przegrana";
-  else
-    statusGry = "w trakcie";
+  start() {
+    this.pokoj = 1;
+    this.energia = this.MAKS_ENERGIA;
+    this.karta = false;
+    this.bezpiecznik = false;
+    this.zasilanie = false;
+    this.koniec = false;
+    this.wygrana = false;
 
-  console.log(`Status gry: ${statusGry}`);
-}
-function mapa() {
-  for (let i = 1; i <= 4; i++) {
-    console.log(`${i} ${nazwaPokoju(i)}${i === pokoj ? " <-- jestes tutaj" : ""}`);
+    console.log("UCIECZKA Z SERWEROWNI. Zasilanie awaryjne wystarczy na 10 tur.");
+    this.pomoc();
+    this.rozejrzyj();
   }
-}
-function rozejrzyj() {
-  switch(pokoj) {
-    case 1: {
-      if (!karta)
-        console.log("Karta leży na biurku");
-      break;
-    }
-    case 2: {
-      if (!bezpiecznik && !zasilanie)
-        console.log("Bezpiecznik leży na półce");
-      break;
-    }
-    case 3: {
-      if (zasilanie)
-        console.log("Zasilanie działa");
-      else
-        console.log("Zasilanie nie działa");
-      break;
-    }
-    case 4: {
-      console.log("Wymagania: musisz znaleźć kartę i bezpiecznik, przywrócić zasilanie i wyjść");
-      break;
-    }
-  }
-}
 
-function idz(kierunek) {
-  if (koniec) {
-    console.log("Koniec gry, nie mozesz sie ruszyc");
-    return;
+  zakonczTure() {
+    this.energia = this.energia - 1;
+    console.log("Pozostala energia: " + this.energia);
+
+    if (this.wygrana) {
+      console.log("WYGRANA! Drzwi otwarte. Mozesz wrocic do domu.");
+    } else if (this.energia === 0) {
+      this.koniec = true;
+      console.log("PRZEGRANA. Zasilanie awaryjne padlo. Wpisz gra.start().");
+    }
   }
-  let nastepnyPokoj = pokoj;
-  switch(kierunek) {
-    case "prawo": {
-      nastepnyPokoj += 1;
-      break;
+
+  nazwaPokoju(numer) {
+    switch (numer) {
+      case 1: return "Recepcja";
+      case 2: return "Magazyn";
+      case 3: return "Serwerownia";
+      case 4: return "Wyjście";
+      default: return "Nieznane pomieszczenie";
     }
-    case "lewo": {
-      nastepnyPokoj -= 1;
-      break;
+  }
+
+  pomoc() {
+    console.log('Dostepne: gra.start(), gra.pomoc(), gra.status(), gra.mapa(), gra.rozejrzyj(), gra.idz("prawo"), gra.akcja("karta")');
+    console.log("gra.start(): Resetuje wszystkie zmienne, wypisuje pomoc i opis");
+    console.log("gra.pomoc(): Wypisuje komendy i zasady");
+    console.log("gra.status(): Pokazuje aktualne dane");
+    console.log("gra.mapa(): Wypisuje cztery pokoje i zaznacza aktualny");
+    console.log("gra.rozejrzyj(): Opisuje aktualny pokój i przedmioty");
+    console.log('gra.idz("prawo"): Ruch w prawo');
+    console.log('gra.akcja("karta"): Dostepne akcje: "karta", "bezpiecznik", "napraw", "wyjdz"');
+  }
+
+  status() {
+    console.log(`Pokój: ${this.pokoj} (${this.nazwaPokoju(this.pokoj)})`);
+    console.log(`Energia: ${this.energia}`);
+    console.log(`Karta: ${this.karta ? "tak" : "nie"}`);
+    console.log(`Bezpiecznik: ${this.bezpiecznik ? "tak" : "nie"}`);
+    console.log(`Zasilanie: ${this.zasilanie ? "tak" : "nie"}`);
+
+    let statusGry = "";
+
+    if (this.wygrana) {
+      statusGry = "wygrana";
+    } else if (this.koniec) {
+      statusGry = "przegrana";
+    } else {
+      statusGry = "w trakcie";
     }
-    default: {
-      console.log("nieznany kierunek, dostepne opcje: \"prawo\", \"lewo\"");
+
+    console.log(`Status gry: ${statusGry}`);
+  }
+
+  mapa() {
+    for (let i = 1; i <= 4; i++) {
+      console.log(
+        `${i} ${this.nazwaPokoju(i)}${i === this.pokoj ? " <-- jestes tutaj" : ""}`
+      );
+    }
+  }
+
+  rozejrzyj() {
+    switch (this.pokoj) {
+      case 1: {
+        if (!this.karta) {
+          console.log("Karta leży na biurku");
+        }
+        break;
+      }
+
+      case 2: {
+        if (!this.bezpiecznik && !this.zasilanie) {
+          console.log("Bezpiecznik leży na półce");
+        }
+        break;
+      }
+
+      case 3: {
+        if (this.zasilanie) {
+          console.log("Zasilanie działa");
+        } else {
+          console.log("Zasilanie nie działa");
+        }
+        break;
+      }
+
+      case 4: {
+        console.log("Wymagania: musisz znaleźć kartę i bezpiecznik, przywrócić zasilanie i wyjść");
+        break;
+      }
+    }
+  }
+
+  idz(kierunek) {
+    if (this.koniec) {
+      console.log("Koniec gry, nie mozesz sie ruszyc");
       return;
     }
-  }
-  if (1 > nastepnyPokoj || nastepnyPokoj > 4) {
-    console.log("nie mozesz wejsc w sciane");
-    return;
-  }
-  
-  pokoj = nastepnyPokoj;
-  rozejrzyj();
-  zakonczTure();
-}
 
-function akcja(co) {
-  if(koniec === true)
-  {
-    console.log("Nie mozesz wykonac akcji nie ma aktywnej gry.");
-    return;
+    let nastepnyPokoj = this.pokoj;
+
+    switch (kierunek) {
+      case "prawo": {
+        nastepnyPokoj += 1;
+        break;
+      }
+
+      case "lewo": {
+        nastepnyPokoj -= 1;
+        break;
+      }
+
+      default: {
+        console.log('Nieznany kierunek, dostepne opcje: "prawo", "lewo"');
+        return;
+      }
+    }
+
+    if (nastepnyPokoj < 1 || nastepnyPokoj > 4) {
+      console.log("Nie mozesz wejsc w sciane");
+      return;
+    }
+
+    this.pokoj = nastepnyPokoj;
+    this.rozejrzyj();
+    this.zakonczTure();
   }
-  switch (co) {
-    case "karta":
-      {
-        if (pokoj == 1 && karta == false) {
-          karta = true;
+
+  akcja(co) {
+    if (this.koniec === true) {
+      console.log("Nie mozesz wykonac akcji, nie ma aktywnej gry.");
+      return;
+    }
+
+    switch (co) {
+      case "karta": {
+        if (this.pokoj === 1 && this.karta === false) {
+          this.karta = true;
           console.log("Zabierasz karte.");
-        }
-        else {
-          console.log("Tutaj nie ma karty do zabrania")
+        } else {
+          console.log("Tutaj nie ma karty do zabrania");
           return;
         }
         break;
       }
-    case "bezpiecznik":
-      {
-        if(pokoj == 2 && bezpiecznik == false && zasilanie == false) {
-          bezpiecznik = true;
+
+      case "bezpiecznik": {
+        if (
+          this.pokoj === 2 &&
+          this.bezpiecznik === false &&
+          this.zasilanie === false
+        ) {
+          this.bezpiecznik = true;
           console.log("Zabierasz bezpiecznik.");
-        }
-        else {
+        } else {
           console.log("Tutaj nie ma bezpiecznika do zabrania");
           return;
         }
         break;
       }
-    case "napraw":
-      {
-        if(pokoj == 3 && bezpiecznik == true && zasilanie == false) {
-          bezpiecznik = false;
-          zasilanie = true;
+
+      case "napraw": {
+        if (
+          this.pokoj === 3 &&
+          this.bezpiecznik === true &&
+          this.zasilanie === false
+        ) {
+          this.bezpiecznik = false;
+          this.zasilanie = true;
           console.log("Naprawiles zasilanie!");
-        }
-        else {
+        } else {
           console.log("Nie możesz teraz naprawić zasilania.");
           return;
         }
         break;
       }
-    case "wyjdz":
-      {
-        if (pokoj == 4 && karta == true && zasilanie == true) {
-          wygrana = true;
-          koniec = true;
-          console.log("Wychodzisz z gry udalo ci sie przywrocic zasilanie!");
-        }
-        else {
+
+      case "wyjdz": {
+        if (
+          this.pokoj === 4 &&
+          this.karta === true &&
+          this.zasilanie === true
+        ) {
+          this.wygrana = true;
+          this.koniec = true;
+          console.log("Wychodzisz z gry, udalo ci sie przywrocic zasilanie!");
+        } else {
           console.log("Nie mozesz teraz wyjsc z gry.");
           return;
         }
         break;
       }
-  }
-  zakonczTure();
 
+      default: {
+        console.log('Nieznana akcja. Dostępne: "karta", "bezpiecznik", "napraw", "wyjdz".');
+        return;
+      }
+    }
+
+    this.zakonczTure();
+  }
 }
 
-start();
+const gra = new Gra();
+gra.start();
