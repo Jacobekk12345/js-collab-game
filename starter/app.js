@@ -78,6 +78,8 @@ class Gra {
     console.log(`Status gry: ${statusGry}`);
   }
 
+  
+
   mapa() {
     for (let i = 1; i <= 4; i++) {
       console.log(
@@ -226,6 +228,24 @@ class Gra {
 
     this.zakonczTure();
   }
+
+    exportJSON() {
+    const pakiet = {
+      wersja: 1,
+      stan: {
+        pokoj: this.pokoj,
+        energia: this.energia,
+        karta: this.karta,
+        bezpiecznik: this.bezpiecznik,
+        zasilanie: this.zasilanie,
+        koniec: this.koniec,
+        wygrana: this.wygrana
+      }
+    };
+
+    return JSON.stringify(pakiet, null, 2);
+  }
+
 }
 
 const gra = new Gra();
