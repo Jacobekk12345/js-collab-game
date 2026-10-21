@@ -1,12 +1,4 @@
-// WSPOLNY KONTRAKT: nazwy zmiennych i funkcji uzgadnia caly zespol.
-const MAKS_ENERGIA = 10;
-let pokoj = 1;
-let energia = MAKS_ENERGIA;
-let karta = false;
-let bezpiecznik = false;
-let zasilanie = false;
-let koniec = false;
-let wygrana = false;
+
 
 // SEKCJA 0 — GOTOWY SILNIK NAUCZYCIELA
 function start() {
