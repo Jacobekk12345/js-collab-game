@@ -7,8 +7,8 @@ class Gra {
   start() {
     this.stan = stanPoczatkowy();
     console.log("UCIECZKA Z SERWEROWNI. Zasilanie awaryjne wystarczy na 10 tur.");
-    this.pomoc();
-    this.rozejrzyj();
+    this.pomoc(false);
+    this.rozejrzyj(false);
 
     this.historia.push("gra.start()");
   }
@@ -35,7 +35,7 @@ class Gra {
     }
     
   }
-  pomoc() {
+  pomoc(saveToHistory = true) {
     console.log('Dostepne:  gra.start(), gra.pomoc(), gra.status(), gra.mapa(), gra.rozejrzyj(), gra.idz("prawo"), gra.akcja("karta")');
     console.log("gra.start(): Resetuje wszystkie zmienne, wypisuje pomoc i opis");
     console.log("gra.pomoc(): Wypisuje komendy i zasady");
@@ -44,7 +44,9 @@ class Gra {
     console.log("gra.rozejrzyj(): Opisuje aktualny pokój i przedmioty");
     console.log("gra.idz(\"prawo\"): ruch w kierunku podanych w nawiasie w tym przypadku w prawo");
     console.log("gra.akcja(\"karta\"): wykonuje akcje, dostepne wartosci: \"karta\", \"bezpiecznik\", \"napraw\", \"wyjdz\"");
-    this.historia.push("gra.pomoc()");
+    
+    if (saveToHistory)
+      this.historia.push("gra.pomoc()");
   }
   status() {
     console.log(`Pokój: ${this.stan.pokoj}(${nazwaPokoju(this.stan.pokoj)})`);
@@ -65,14 +67,15 @@ class Gra {
 
     this.historia.push("gra.status()");
   }
-  mapa() {
+  mapa(saveToHistory = true) {
     for (let i = 1; i <= 4; i++) {
       console.log(`${i} ${this.nazwaPokoju(i)}${i === this.stan.pokoj ? " <-- jestes tutaj" : ""}`);
     }
 
-    this.historia.push("gra.mapa()");
+    if (saveToHistory)
+      this.historia.push("gra.mapa()");
   }
-  rozejrzyj() {
+  rozejrzyj(saveToHistory = true) {
     switch(this.stan.pokoj) {
       case 1: {
         if (!this.stan.karta)
@@ -97,7 +100,8 @@ class Gra {
       }
     }
 
-    this.historia.push("gra.rozejrzyj()");
+    if (saveToHistory)
+      this.historia.push("gra.rozejrzyj()");
   }
 
   idz(kierunek) {
@@ -126,8 +130,8 @@ class Gra {
     }
     
     this.stan.pokoj = nastepnyPokoj;
-    this.rozejrzyj();
-    this.zakonczTure();
+    this.rozejrzyj(false);
+    this.zakonczTure(false);
 
     this.historia.push(`gra.idz(${kierunek})`);
   }
@@ -197,26 +201,29 @@ class Gra {
       data = JSON.parse(input);
     }
     catch(e) {
-      return "niepoprawny JSON 187"
+      return "niepoprawny JSON"
     }
 
-    if (data == null || typeof data != "object") return "niepoprawny JSON 190"
+    if (data == null || typeof data != "object") return "niepoprawny JSON"
 
-    if (typeof data.pokoj != "number") return "pokoj musi byc liczba 192";
-    if (data.pokoj > 4 || data.pokoj < 1) return "niepoprawny pokoj 193";
+    if (typeof data.pokoj != "number") return "pokoj musi byc liczba";
+    if (data.pokoj > 4 || data.pokoj < 1) return "niepoprawny pokoj";
 
-    if (typeof data.energia != "number") return "energia musi byc liczba 195";
-    if (data.energia > MAKS_ENERGIA || data.energia < 0) return "niepoprawna ilosc energii 196";
+    if (typeof data.energia != "number") return "energia musi byc liczba";
+    if (data.energia > MAKS_ENERGIA || data.energia < 0) return "niepoprawna ilosc energii";
 
-    if (typeof data.karta != "boolean") return "karta musi byc typem logicznym 198";
-    if (typeof data.bezpiecznik != "boolean") return "bezpiecznik musi byc typem logicznym 199";
-    if (typeof data.zasilanie != "boolean") return "zasilanie musi byc typem logicznym 200";
-    if (typeof data.koniec != "boolean") return "koniec musi byc typem logicznym 201";
-    if (typeof data.wygrana != "boolean") return "wygrana musi byc typem logicznym 202";
+    if (typeof data.karta != "boolean") return "karta musi byc typem logicznym";
+    if (typeof data.bezpiecznik != "boolean") return "bezpiecznik musi byc typem logicznym";
+    if (typeof data.zasilanie != "boolean") return "zasilanie musi byc typem logicznym";
+    if (typeof data.koniec != "boolean") return "koniec musi byc typem logicznym";
+    if (typeof data.wygrana != "boolean") return "wygrana musi byc typem logicznym";
 
     this.stan = data;
 
     this.historia.push(`gra.importJSON(${input})`);
+
+    this.rozejrzyj(false);
+    this.mapa(false);
   }
 
 
