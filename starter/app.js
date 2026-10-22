@@ -35,14 +35,14 @@ class Gra {
     
   }
   pomoc() {
-    console.log('Dostepne:  start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), akcja("karta")');
-    console.log("start(): Resetuje wszystkie zmienne, wypisuje pomoc i opis");
-    console.log("pomoc(): Wypisuje komendy i zasady");
-    console.log("status(): Pokazuje aktualne dane");
-    console.log("mapa(): Pętlą wypisuje cztery pokoje i zaznacza aktualny");
-    console.log("rozejrzyj(): Opisuje aktualny pokój i przedmioty");
-    console.log("idz(\"prawo\"): ruch w kierunku podanych w nawiasie w tym przypadku w prawo");
-    console.log("akcja(\"karta\"): wykonuje akcje, dostepne wartosci: \"karta\", \"bezpiecznik\", \"napraw\", \"wyjdz\"");
+    console.log('Dostepne:  gra.start(), gra.pomoc(), gra.status(), gra.mapa(), gra.rozejrzyj(), gra.idz("prawo"), gra.akcja("karta")');
+    console.log("gra.start(): Resetuje wszystkie zmienne, wypisuje pomoc i opis");
+    console.log("gra.pomoc(): Wypisuje komendy i zasady");
+    console.log("gra.status(): Pokazuje aktualne dane");
+    console.log("gra.mapa(): Pętlą wypisuje cztery pokoje i zaznacza aktualny");
+    console.log("gra.rozejrzyj(): Opisuje aktualny pokój i przedmioty");
+    console.log("gra.idz(\"prawo\"): ruch w kierunku podanych w nawiasie w tym przypadku w prawo");
+    console.log("gra.akcja(\"karta\"): wykonuje akcje, dostepne wartosci: \"karta\", \"bezpiecznik\", \"napraw\", \"wyjdz\"");
   }
   status() {
     console.log(`Pokój: ${this.stan.pokoj}(${nazwaPokoju(this.stan.pokoj)})`);
