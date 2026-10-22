@@ -1,7 +1,6 @@
 class Gra {
   constructor() {
     const stan = stanPoczatkowy();
-    this.historia = [];
   }
 
   start() {
@@ -10,7 +9,7 @@ class Gra {
     this.pomoc(false);
     this.rozejrzyj(false);
 
-    this.historia.push("gra.start()");
+    this.stan.historia.push("gra.start()");
   }
 
   zakonczTure() {
@@ -25,7 +24,7 @@ class Gra {
   }
 
   nazwaPokoju(numer) {
-    this.historia.push(`gra.nazwaPokoju(${numer})`);
+    this.stan.historia.push(`gra.nazwaPokoju(${numer})`);
     switch(numer) {
       case 1: return "Recepcja";
       case 2: return "Magazyn";
@@ -46,7 +45,7 @@ class Gra {
     console.log("gra.akcja(\"karta\"): wykonuje akcje, dostepne wartosci: \"karta\", \"bezpiecznik\", \"napraw\", \"wyjdz\"");
     
     if (saveToHistory)
-      this.historia.push("gra.pomoc()");
+      this.stan.historia.push("gra.pomoc()");
   }
   status() {
     console.log(`Pokój: ${this.stan.pokoj}(${nazwaPokoju(this.stan.pokoj)})`);
@@ -65,7 +64,7 @@ class Gra {
 
     console.log(`Status gry: ${statusGry}`);
 
-    this.historia.push("gra.status()");
+    this.stan.historia.push("gra.status()");
   }
   mapa(saveToHistory = true) {
     for (let i = 1; i <= 4; i++) {
@@ -73,7 +72,7 @@ class Gra {
     }
 
     if (saveToHistory)
-      this.historia.push("gra.mapa()");
+      this.stan.historia.push("gra.mapa()");
   }
   rozejrzyj(saveToHistory = true) {
     switch(this.stan.pokoj) {
@@ -101,7 +100,7 @@ class Gra {
     }
 
     if (saveToHistory)
-      this.historia.push("gra.rozejrzyj()");
+      this.stan.historia.push("gra.rozejrzyj()");
   }
 
   idz(kierunek) {
@@ -133,7 +132,7 @@ class Gra {
     this.rozejrzyj(false);
     this.zakonczTure(false);
 
-    this.historia.push(`gra.idz(${kierunek})`);
+    this.stan.historia.push(`gra.idz(${kierunek})`);
   }
 
   akcja(co) {
@@ -192,7 +191,7 @@ class Gra {
         }
     }
     this.zakonczTure();
-    this.historia.push(`gra.akcja(${co})`);
+    this.stan.historia.push(`gra.akcja(${co})`);
   }
 
   importJSON(input) {
@@ -218,9 +217,11 @@ class Gra {
     if (typeof data.koniec != "boolean") return "koniec musi byc typem logicznym";
     if (typeof data.wygrana != "boolean") return "wygrana musi byc typem logicznym";
 
+    if (typeof data.historia != "object") return "historia musi byc obiektem";
+
     this.stan = data;
 
-    this.historia.push(`gra.importJSON(${input})`);
+    this.stan.historia.push(`gra.importJSON(${input})`);
 
     this.rozejrzyj(false);
     this.mapa(false);
@@ -228,7 +229,7 @@ class Gra {
 
 
   exportJSON() {
-    this.historia.push("gra.exportJSON()");
+    this.stan.historia.push("gra.exportJSON()");
     return JSON.stringify(this.stan);
   }
 }
