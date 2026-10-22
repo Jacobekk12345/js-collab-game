@@ -10,7 +10,7 @@ class Gra {
     this.pomoc();
     this.rozejrzyj();
 
-    this.historia.push("start()");
+    this.historia.push("gra.start()");
   }
 
   zakonczTure() {
@@ -25,6 +25,7 @@ class Gra {
   }
 
   nazwaPokoju(numer) {
+    this.historia.push(`gra.nazwaPokoju(${numer})`);
     switch(numer) {
       case 1: return "Recepcja";
       case 2: return "Magazyn";
@@ -43,6 +44,7 @@ class Gra {
     console.log("gra.rozejrzyj(): Opisuje aktualny pokój i przedmioty");
     console.log("gra.idz(\"prawo\"): ruch w kierunku podanych w nawiasie w tym przypadku w prawo");
     console.log("gra.akcja(\"karta\"): wykonuje akcje, dostepne wartosci: \"karta\", \"bezpiecznik\", \"napraw\", \"wyjdz\"");
+    this.historia.push("gra.pomoc()");
   }
   status() {
     console.log(`Pokój: ${this.stan.pokoj}(${nazwaPokoju(this.stan.pokoj)})`);
@@ -60,11 +62,15 @@ class Gra {
       statusGry = "w trakcie";
 
     console.log(`Status gry: ${statusGry}`);
+
+    this.historia.push("gra.status()");
   }
   mapa() {
     for (let i = 1; i <= 4; i++) {
       console.log(`${i} ${this.nazwaPokoju(i)}${i === this.stan.pokoj ? " <-- jestes tutaj" : ""}`);
     }
+
+    this.historia.push("gra.mapa()");
   }
   rozejrzyj() {
     switch(this.stan.pokoj) {
@@ -90,6 +96,8 @@ class Gra {
         break;
       }
     }
+
+    this.historia.push("gra.rozejrzyj()");
   }
 
   idz(kierunek) {
@@ -121,7 +129,7 @@ class Gra {
     this.rozejrzyj();
     this.zakonczTure();
 
-    this.historia.push(`idz(${kierunek})`);
+    this.historia.push(`gra.idz(${kierunek})`);
   }
 
   akcja(co) {
@@ -180,7 +188,7 @@ class Gra {
         }
     }
     this.zakonczTure();
-    this.historia.push(`akcja(${co})`);
+    this.historia.push(`gra.akcja(${co})`);
   }
 
   importJSON(input) {
@@ -208,12 +216,12 @@ class Gra {
 
     this.stan = data;
 
-    this.historia.push(`importJSON(${input})`);
+    this.historia.push(`gra.importJSON(${input})`);
   }
 
 
   exportJSON() {
-    this.historia.push("exportJSON()");
+    this.historia.push("gra.exportJSON()");
     return JSON.stringify(this.stan);
   }
 }
