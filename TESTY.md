@@ -45,6 +45,26 @@
 
 ### Sprawdzała Laura Dembicka
 
+## TEST HISTORII KOMEND
+
+### input 
+
+`gra.idz("prawo)`
+`gra.rozejrzyj()`
+`gra.historia`
+
+### oczekiwany wynik 
+
+```['start()', 'idz(prawo)', 'rozejrzyj()']```
+
+### otrzymany wynik 
+
+```['start()', 'idz(prawo)', 'rozejrzyj()']```
+
+### Sprawdzała Laura Dembicka
+
+
+
 
 
 
