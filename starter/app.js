@@ -1,7 +1,7 @@
-
 class Gra {
   constructor() {
     const stan = stanPoczatkowy();
+    this.historia = [];
   }
 
   start() {
@@ -9,6 +9,8 @@ class Gra {
     console.log("UCIECZKA Z SERWEROWNI. Zasilanie awaryjne wystarczy na 10 tur.");
     this.pomoc();
     this.rozejrzyj();
+
+    this.historia.push("start()");
   }
 
   zakonczTure() {
@@ -30,9 +32,10 @@ class Gra {
       case 4: return "Wyjście";
       default: return "Nieznane pomieszczenie";
     }
+    
   }
   pomoc() {
-    console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), akcja("karta")');
+    console.log('Dostepne:  start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), akcja("karta")');
     console.log("start(): Resetuje wszystkie zmienne, wypisuje pomoc i opis");
     console.log("pomoc(): Wypisuje komendy i zasady");
     console.log("status(): Pokazuje aktualne dane");
@@ -117,6 +120,8 @@ class Gra {
     this.stan.pokoj = nastepnyPokoj;
     this.rozejrzyj();
     this.zakonczTure();
+
+    this.historia.push(`idz(${kierunek})`);
   }
 
   akcja(co) {
@@ -175,7 +180,7 @@ class Gra {
         }
     }
     this.zakonczTure();
-
+    this.historia.push(`akcja(${co})`);
   }
 
   importJSON(input) {
@@ -202,10 +207,13 @@ class Gra {
     if (typeof data.wygrana != "boolean") return "wygrana musi byc typem logicznym 202";
 
     this.stan = data;
+
+    this.historia.push(`importJSON(${input})`);
   }
 
 
   exportJSON() {
+    this.historia.push("exportJSON()");
     return JSON.stringify(this.stan);
   }
 }
