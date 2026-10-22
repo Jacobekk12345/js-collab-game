@@ -8,6 +8,7 @@ function stanPoczatkowy() {
         bezpiecznik: false,
         zasilanie: false,
         koniec: false,
-        wygrana: false
+        wygrana: false,
+        historia: []
     }
 }
