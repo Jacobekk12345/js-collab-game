@@ -43,6 +43,7 @@ class Gra {
     console.log("gra.rozejrzyj(): Opisuje aktualny pokój i przedmioty");
     console.log("gra.idz(\"prawo\"): ruch w kierunku podanych w nawiasie w tym przypadku w prawo");
     console.log("gra.akcja(\"karta\"): wykonuje akcje, dostepne wartosci: \"karta\", \"bezpiecznik\", \"napraw\", \"wyjdz\"");
+    console.log("gra.stan.historia: wyswietla historie wpisanych komend");
     
     if (saveToHistory)
       this.stan.historia.push("gra.pomoc()");
